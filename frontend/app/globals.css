@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-rgb: rgb(255, 255, 255);
+  --on-background-rgb: rgb(18, 18, 18);
+  --surface-rgb: rgb(248, 248, 248);
+  --on-surface-rgb: rgb(40, 40, 40);
+  --primary-rgb: rgb(56, 43, 240);
+  --on-primary-rgb: rgb(255, 255, 255);
+  --secondary-rgb: rgb(123, 218, 198);
+  --on-secondary-rgb: rgb(0, 0, 0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-rgb: rgb(18, 18, 18);
+    --on-background-rgb: rgb(255, 255, 255);
+    --surface-rgb: rgb(40, 40, 40);
+    --on-surface-rgb: rgb(224, 224, 224);
+    --primary-rgb: rgb(56, 43, 240);
+    --on-primary-rgb: rgb(255, 255, 255);
+    --secondary-rgb: rgb(123, 218, 198);
+    --on-secondary-rgb: rgb(0, 0, 0);
+  }
+}
+
+.background {
+  color: var(--on-background-rgb);
+  background: var(--background-rgb);
+}
+
+.surface {
+  color: var(--on-surface-rgb);
+  background: var(--surface-rgb);
+}
+
+.primary {
+  color: var(--on-primary-rgb);
+  background: var(--primary-rgb);
+}
+
+.secondary {
+  color: var(--on-secondary-rgb);
+  background: var(--secondary-rgb);
+}
+
+.nav {
+  min-height: 7%;
+  background: var(--surface-rgb);
+}
+
+.nav-links {
+  color: var(--on-surface-rgb);
+}
+
+.username {
+  color: var(--primary-rgb);
+}
+
+.pack-link {
+  color: rgb(94, 67, 243);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

@@ -1,0 +1,56 @@
+services:
+  redis:
+    image: redis/redis-stack-server:latest
+    ports:
+      - '127.0.0.1:6379:6379/tcp'
+    environment:
+      REDIS_ARGS: "--user nikitagryshchak allcommands allkeys allchannels on >feniks2003"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+    volumes:
+      - redis_data:/data
+
+  mongodb:
+    image: mongodb/mongodb-community-server:6.0-ubi8
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      MONGO_INITDB_DATABASE: sgame
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  backend:
+    build: backend
+    ports:
+      - 8080:80
+    depends_on:
+      - redis
+      - mongodb
+    environment:
+      HOST: ""
+      PORT: 80
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_USERNAME: nikitagryshchak
+      REDIS_PASSWORD: feniks2003
+      REDIS_DB: 0
+      MONGO_DB_NAME: sgame
+      MONGO_CONN: mongodb://root:rootpassword@mongodb:27017/sgame?authSource=admin
+      MY_CLIENT_ORIGIN: http://localhost:3000
+
+  # frontend:
+  #   build: frontend
+  #   ports:
+  #     - 3000:80
+  #   depends_on:
+  #     - backend
+  #   environment:
+  #     PORT: 80
+  #     BACKEND_HOST: backend
+
+
+volumes:
+  redis_data:
+  mongodb_data_container:
